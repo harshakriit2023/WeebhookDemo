@@ -1,0 +1,51 @@
+<!-- 
+@description: Lightning web component using Fullcalendar.io js library to display most recent events
+@author: Brahmaji tammana from www.auraenabled.com 
+@jslibrary: https://fullcalendar.io/ -->
+<template>
+	<!-- Spinner to show on waiting screens -->
+	<template if:true={openSpinner}>
+		<lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+	</template>
+
+	<div class="slds-grid slds-wrap slds-theme_default">
+		<div class="slds-col slds-size_3-of-12">
+		    <div>
+                <div class="slds-clearfix">
+                    <p style="font-size: large;font-weight: 600;"><lightning-icon icon-name="standard:avatar" class="slds-m-horizontal_large slds-m-top_large"></lightning-icon>Users</p>
+                </div>
+                <template if:true={users}>
+                    <div>
+                        <template for:each={users} for:item="user">
+                           <!--<lightning-card variant="Narrow" key={user.Id} title={user.Name} class="slds-m-around_xxx-small">
+                            </lightning-card>--> 
+                            <article class="slds-card slds-m-around_medium" key={user.Id}>
+                                <div class="slds-card__header slds-grid">
+                                    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                        <div class="slds-media__figure">
+                                            <span>
+                                                <lightning-input type="checkbox" variant="standard" onclick={onUserClick} value={user.Id}></lightning-input>
+                                            </span>
+                                        </div>
+                                        <div class="slds-media__body">
+                                            <h2 class="slds-card__header-title">
+                                                <span key={user.Id}>{user.Name}</span>
+                                            </h2>
+                                        </div>
+                                    </header>
+                                </div>
+                            </article>
+                        </template>
+                    </div>
+                </template>
+                <template if:false={users}>
+                    <p>No users found.</p>
+                </template>
+            </div>
+		</div>
+		<div class="slds-col slds-size_9-of-12">
+			<!-- fullcalendar sits in this div -->
+			<div id="calendar" class="fullcalendarjs"></div>
+		</div>
+	</div>
+</template>

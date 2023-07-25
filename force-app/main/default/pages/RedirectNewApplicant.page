@@ -1,0 +1,56 @@
+<apex:page lightningStylesheets="true">
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Home</title>
+
+</head>
+<body>
+
+    <apex:slds />
+    <apex:includeLightning />
+    
+    <!-- Spinner Start -->
+    <div role="status" class="slds-spinner slds-spinner_medium spinner">
+        <span class="slds-assistive-text">Loading</span>
+        <div class="slds-spinner__dot-a"></div>
+        <div class="slds-spinner__dot-b"></div>
+    </div>
+    <!-- Spinner End -->
+    
+    <div id="container" style="width: 100%;height: 100%;" >
+    </div>
+    <script>
+        
+        var spinner = document.querySelector('.spinner');
+    
+        $Lightning.use("c:RedirectApplicantConApplicantApp", function () {
+            $Lightning.createComponent(
+                "c:ParentApplicantLWC",
+                { msg: "Component View LWC." },
+                "container",
+                function (component) {
+                    console.log('LWC Component Created.');
+                    // hide spinner after component render
+                    spinner.style.display = 'none';
+                    
+                    // handle record save success event
+                    // and display toast message
+                    document.querySelector('c-parent-applicant-l-w-c').addEventListener('handlesuccessevent', function(event){
+                        console.log('From VF : RedirectNewApplicant : showtoast event');
+                        // show toast message
+                        sforce.one.showToast(event.detail);
+                    });
+                }
+            );
+        });
+    
+    </script>
+
+    
+</body>
+</html>
+
+</apex:page>
